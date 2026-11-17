@@ -1,5 +1,6 @@
 import { Star } from 'lucide-react'
 import { wa } from '../data/site.js'
+import { openBooking, bookingEnabled } from '../lib/booking-events.js'
 
 const base =
   'inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-7 py-3.5 text-[0.8rem] font-medium uppercase tracking-[0.16em] transition-[background-color,color,border-color,transform] duration-300 active:scale-[0.97]'
@@ -20,6 +21,45 @@ export function BookButton({ variant = 'dark', className = '', children = 'Reser
       href={wa(message)}
       target="_blank"
       rel="noopener noreferrer"
+      className={`${base} ${variants[variant]} ${className}`}
+      {...rest}
+    >
+      {Icon && <Icon className="size-4" strokeWidth={1.75} aria-hidden />}
+      {children}
+    </a>
+  )
+}
+
+/**
+ * Botón de reserva online: abre el diálogo de reserva.
+ * `group` filtra los servicios (p. ej. 'spa'); `service` preselecciona uno.
+ */
+export function BookOnlineButton({
+  variant = 'dark',
+  className = '',
+  children = 'Reserva tu cita',
+  icon: Icon,
+  group,
+  service,
+  onClick,
+  ...rest
+}) {
+  // Sin reserva online activada, el mismo botón abre WhatsApp
+  if (!bookingEnabled) {
+    return (
+      <BookButton variant={variant} className={className} icon={Icon} onClick={onClick} {...rest}>
+        {children}
+      </BookButton>
+    )
+  }
+  return (
+    <a
+      href="#reservar"
+      onClick={(e) => {
+        e.preventDefault()
+        onClick?.(e)
+        openBooking({ group, service })
+      }}
       className={`${base} ${variants[variant]} ${className}`}
       {...rest}
     >

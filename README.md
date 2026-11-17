@@ -18,6 +18,9 @@ Casi todo está en `src/data/site.js`:
 - `services`, `spa`, `reviews`, `gallery`: textos y fotos.
 - Fotos en `public/images/`.
 
+### Reservas online
+Ver **SETUP-RESERVAS.md** (Google Calendar + funciones de Netlify). Servicios, duraciones y equipo en `src/data/booking.js`.
+
 ### Pendiente
 - Precio del Hair Spa (`spa.price`) y confirmar duración (`spa.duration`).
 - URL de Facebook.
@@ -32,5 +35,7 @@ src/
   hooks/                useReveal (fade-in), useNow (hora actual)
   components/           Header, Hero, Services, HairSpa, Team, Reviews,
                         Gallery, Contact, Footer, MobileBookingBar, ui
+netlify/functions/      API de reservas (/api/availability, /api/book)
+netlify/lib/            acceso a Google Calendar
 netlify.toml            configuración de build para Netlify
 ```

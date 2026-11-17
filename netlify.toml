@@ -5,6 +5,11 @@
 [build.environment]
   NODE_VERSION = "22"
 
+# Funciones de reservas (/api/availability, /api/book)
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
 # Caché larga para los assets con hash y las fotos
 [[headers]]
   for = "/assets/*"

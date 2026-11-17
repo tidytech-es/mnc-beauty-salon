@@ -52,6 +52,7 @@ const img = (name) => `/images/${name}.webp`
 
 export const images = {
   hero: img('salon-interior'),
+  heroBg: img('lavacabezas-flores'),
   spa: img('renova-ritual'),
   team: img('fachada'),
   cut: img('color-cereza'),

@@ -1,33 +1,27 @@
 import { useEffect, useState } from 'react'
-import { MessageCircle, Phone } from 'lucide-react'
+import { CalendarHeart, Phone } from 'lucide-react'
 import { site, wa } from '../data/site.js'
+import { openBooking, bookingEnabled } from '../lib/booking-events.js'
 
 /**
  * Barra fija inferior en móvil: la reserva siempre a un toque.
- * Aparece al salir de la portada y se esconde en Contacto, donde ya están los mismos botones.
+ * Se esconde en Contacto, donde ya están los mismos botones.
  */
 export default function MobileBookingBar() {
-  const [pastHero, setPastHero] = useState(false)
   const [atContact, setAtContact] = useState(false)
 
   useEffect(() => {
-    const onScroll = () => setPastHero(window.scrollY > window.innerHeight * 0.6)
-    onScroll()
-    window.addEventListener('scroll', onScroll, { passive: true })
-
     const contact = document.getElementById('contacto')
     let io
     if (contact && 'IntersectionObserver' in window) {
       io = new IntersectionObserver(([e]) => setAtContact(e.isIntersecting), { rootMargin: '0px 0px -30% 0px' })
       io.observe(contact)
     }
-    return () => {
-      window.removeEventListener('scroll', onScroll)
-      io?.disconnect()
-    }
+    return () => io?.disconnect()
   }, [])
 
-  const show = pastHero && !atContact
+  // Visible desde el inicio (la portada expandible no muestra botón hasta el final)
+  const show = !atContact
 
   return (
     <div
@@ -47,13 +41,19 @@ export default function MobileBookingBar() {
           <Phone className="size-5" strokeWidth={1.5} />
         </a>
         <a
-          href={wa()}
-          target="_blank"
-          rel="noopener noreferrer"
+          href={bookingEnabled ? '#reservar' : wa()}
+          {...(bookingEnabled
+            ? {
+                onClick: (e) => {
+                  e.preventDefault()
+                  openBooking()
+                },
+              }
+            : { target: '_blank', rel: 'noopener noreferrer' })}
           tabIndex={show ? 0 : -1}
           className="flex min-h-12 flex-1 items-center justify-center gap-2 rounded-full bg-espresso text-[0.8rem] font-medium uppercase tracking-[0.16em] text-cream"
         >
-          <MessageCircle className="size-4" strokeWidth={1.75} /> Reserva tu cita
+          <CalendarHeart className="size-4" strokeWidth={1.75} /> Reserva tu cita
         </a>
       </div>
     </div>

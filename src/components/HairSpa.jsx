@@ -1,6 +1,6 @@
 import { Gift, Sparkles, Clock, Tag } from 'lucide-react'
 import { images, spa } from '../data/site.js'
-import { BookButton, Stars } from './ui.jsx'
+import { BookButton, BookOnlineButton, Stars } from './ui.jsx'
 import Reveal from './Reveal.jsx'
 
 /** Flor de loto en línea, eco del logotipo de Renova (geometría simple, no ilustración). */
@@ -80,9 +80,9 @@ export default function HairSpa() {
           </Reveal>
 
           <Reveal delay={150} className="mt-9 flex flex-col gap-3 sm:flex-row">
-            <BookButton variant="gold" icon={Sparkles} message="Hola, me gustaría reservar un ritual de Renova Hair Spa.">
+            <BookOnlineButton variant="gold" icon={Sparkles} group="spa">
               Reserva tu Hair Spa
-            </BookButton>
+            </BookOnlineButton>
             <BookButton
               variant="ghostLight"
               icon={Gift}

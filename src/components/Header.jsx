@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Menu, X, CalendarHeart } from 'lucide-react'
 import { navLinks } from '../data/site.js'
-import { BookButton } from './ui.jsx'
+import { BookOnlineButton } from './ui.jsx'
 
 export function Logo({ light = false }) {
   return (
@@ -65,7 +65,7 @@ export default function Header() {
 
         <div className="flex items-center gap-2">
           <span className="hidden sm:block">
-            <BookButton variant={solid ? 'dark' : 'light'} icon={CalendarHeart} className="!px-5 !py-3" />
+            <BookOnlineButton variant={solid ? 'dark' : 'light'} icon={CalendarHeart} className="!px-5 !py-3" />
           </span>
           <button
             type="button"
@@ -102,7 +102,7 @@ export default function Header() {
             </li>
           ))}
         </ul>
-        <BookButton variant="dark" icon={CalendarHeart} className="mt-8 w-full" onClick={() => setOpen(false)} />
+        <BookOnlineButton variant="dark" icon={CalendarHeart} className="mt-8 w-full" onClick={() => setOpen(false)} />
       </div>
     </>
   )

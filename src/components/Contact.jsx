@@ -1,8 +1,9 @@
-import { MapPin, Clock, Phone, MessageCircle, Navigation } from 'lucide-react'
+import { MapPin, Clock, Phone, MessageCircle, Navigation, CalendarHeart } from 'lucide-react'
 import { site, PHONE_DISPLAY } from '../data/site.js'
 import { dayIndex, openStatus } from '../lib/hours.js'
 import { useNow } from '../hooks/useNow.js'
-import { SectionHeading, BookButton, LinkButton } from './ui.jsx'
+import { bookingEnabled } from '../lib/booking-events.js'
+import { SectionHeading, BookButton, BookOnlineButton, LinkButton } from './ui.jsx'
 import Reveal from './Reveal.jsx'
 
 export default function Contact() {
@@ -16,17 +17,28 @@ export default function Contact() {
         <Reveal>
           <SectionHeading
             title="Te esperamos en Sant Celoni"
-            intro="Escríbenos por WhatsApp o llámanos y te buscamos el mejor hueco."
+            intro={
+              bookingEnabled
+                ? 'Reserva online en un minuto, o escríbenos por WhatsApp o llámanos si lo prefieres.'
+                : 'Escríbenos por WhatsApp o llámanos y te buscamos el mejor hueco.'
+            }
           />
         </Reveal>
 
         <div className="mt-12 grid gap-5 sm:mt-16 lg:grid-cols-[1fr_1.3fr] lg:gap-6">
           <div className="grid gap-5">
-            <Reveal className="flex flex-col gap-3 sm:flex-row lg:flex-col xl:flex-row">
-              <BookButton variant="dark" icon={MessageCircle} className="flex-1">Reservar por WhatsApp</BookButton>
-              <LinkButton href={site.links.phone} variant="outline" className="flex-1">
-                <Phone className="size-4" strokeWidth={1.75} aria-hidden /> {PHONE_DISPLAY}
-              </LinkButton>
+            <Reveal className="grid gap-3">
+              {bookingEnabled && (
+                <BookOnlineButton variant="dark" icon={CalendarHeart}>Reservar online</BookOnlineButton>
+              )}
+              <div className="flex flex-col gap-3 sm:flex-row lg:flex-col xl:flex-row">
+                <BookButton variant={bookingEnabled ? 'outline' : 'dark'} icon={MessageCircle} className="flex-1">
+                  {bookingEnabled ? 'WhatsApp' : 'Reservar por WhatsApp'}
+                </BookButton>
+                <LinkButton href={site.links.phone} variant="outline" className="flex-1">
+                  <Phone className="size-4" strokeWidth={1.75} aria-hidden /> {PHONE_DISPLAY}
+                </LinkButton>
+              </div>
             </Reveal>
 
             <Reveal delay={80} className="rounded-2xl bg-white p-6 sm:p-8">

@@ -8,6 +8,8 @@ import Reviews from './components/Reviews.jsx'
 import Contact from './components/Contact.jsx'
 import Footer from './components/Footer.jsx'
 import MobileBookingBar from './components/MobileBookingBar.jsx'
+import Booking from './components/Booking.jsx'
+import { bookingEnabled } from './lib/booking-events.js'
 
 export default function App() {
   return (
@@ -24,6 +26,7 @@ export default function App() {
       </main>
       <Footer />
       <MobileBookingBar />
+      {bookingEnabled && <Booking />}
     </>
   )
 }
