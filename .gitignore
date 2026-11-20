@@ -7,3 +7,10 @@ dist
 .env.*
 !.env.example
 .netlify
+
+# Claus de Google (compte de servei): mai al repo, només a les variables de Netlify
+mnc-reservas-*.json
+*service-account*.json
+*serviceaccount*.json
+credentials*.json
+/secrets/
